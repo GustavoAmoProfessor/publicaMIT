@@ -1,0 +1,68 @@
+# Lista de palavras para o jogo
+$palavras = "banana", "morango", "laranja", "abacaxi", "uva", "limao"
+
+# Escolhe uma palavra aleatÃ³ria da lista
+$palavraSecreta = Get-Random -InputObject $palavras
+
+# Converte a palavra em um array de letras
+$letrasDaPalavra = $palavraSecreta.ToCharArray()
+
+# Inicializa variÃ¡veis
+$letrasCorretas = @()
+$letrasIncorretas = @()
+$maxTentativas = 6
+$tentativas = 0
+# Exibe uma mensagem de boas-vindas
+Write-Host "Bem-vindo ao Jogo da Forca!"
+
+# Loop principal do jogo
+while ($true) {
+    # Exibe a palavra com letras ocultas
+    $palavraExibida = ""
+    foreach ($letra in $letrasDaPalavra) {
+        if ($letrasCorretas -contains $letra) {
+            $palavraExibida += $letra
+        } else {
+            $palavraExibida += "_"
+        }
+    }
+
+    # Exibe a palavra oculta
+    Write-Host "Palavra: $palavraExibida"
+
+    # Solicita ao jogador uma letra
+    $letraJogador = Read-Host "Digite uma letra ou tecle 'enter' se a palavra estiver certa:"
+    # Verifica se o jogador acertou a palavra
+    if ($letraJogador -eq ""){
+	Write-Host "VocÃª ganhou!"
+    Write-Host "Digite enter para finalizar o programa"
+	$pause = Read-Host
+	if($pause -eq ""){
+		break}
+	}
+    # Verifica se a letra jÃ¡ foi tentada
+    if ($letrasCorretas -contains $letraJogador -or $letrasIncorretas -contains $letraJogador) {
+        Write-Host "VocÃª jÃ¡ tentou essa letra antes."
+        continue
+    }
+    if($tentativas -eq $maxTentativas){
+	Write-Host "VocÃª perdeu! A palavra era '$palavraSecreta'."}
+    # Verifica se a letra estÃ¡ na palavra
+    if ($letrasDaPalavra -contains $letraJogador) {
+        Write-Host "Letra correta!"
+        $letrasCorretas += $letraJogador
+    } else {
+        Write-Host "Letra incorreta!"
+        $letrasIncorretas += $letraJogador
+        $tentativas++
+    }
+
+    # Verifica se o jogador ganhou ou perdeu
+    if ($palavraExibida -eq $palavraSecreta) {
+	Write-Host "ParabÃ©ns! VocÃª ganhou! A palavra Ã© '$palavraSecreta'."
+	
+	$pause = Read-Host  
+    
+	
+}
+}
