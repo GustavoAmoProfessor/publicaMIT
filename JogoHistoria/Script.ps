@@ -1,0 +1,600 @@
+Write-Host "A jornada em Aegisgard, é um jogo da vida estilo fantasia com opção de 2 classes de personagens inicias que influenciarão o curso da história.$([Environment]::NewLine)Para jogar o jogador terá de escolher entre as opções dadas durante o jogo"
+$vida = 1 #Declara a variavel vida para depois utilizar um if e ver se o usuário está vivo ou não
+#Verifica se o usuário deseja jogar, se sim o jogo inicia
+[double]$iniciar = Read-host "Deseja iniciar o jogo?$([Environment]::NewLine)1-Sim$([Environment]::NewLine)2-Não"
+while ($iniciar -eq 1) { #Enquanto o valor de inicio for igual a 1, ou seja, sim o jogo segue até essa condição ser falsa
+    Clear-Host #Limpa o terminal
+    Write-Host "A Jornada em Aegisgard"
+    $genero = Read-Host "Qual o genêro de seu personagem$([Environment]::NewLine)1-Masculino$([Environment]::NewLine)2-Feminino" #Pergunta ao usuário com o genero dele
+    $nome = Read-Host "Insira o nome do seu personagem" #Pede que o usuário insira o nome dele
+    Write-Host "Escolha entre as duas classes de personagem:$([Environment]::NewLine)1-Mago de água: Possui o poder de controlar a água e seus estados físicos$([Environment]::NewLine)2-Ladrão: é extremamente furtivos e possui uma mochila cheia de ferramentas que pode o ajudar em suas aventuras"
+    [double]$classe = Read-Host "Escolha a sua classe" #Pede para que o usuário escolha a sua classe, tranformando a resposta em um número inteiro
+    #Enquanto o número digitado pelo usuário for menor que 1 ou maior que 2, será exibida a mensagem pedindo para ele digitar novamente
+    while ($classe -lt 1 -or $classe -gt 2){
+        [double]$classe = Read-Host "Opção inválida, tente novamente"
+    }
+    #Inicio da narrativa
+    clear-host 
+    Write-Host "Bem-vindo a Aegisgard, uma terra de magia, criaturas misteriosas e segredos antigos.$([Environment]::NewLine)Sua história se inicia neste lugar mágico, habitado por variados seres de diversas raças,  $([Environment]::NewLine)esteja preparado para encontrar inimigos poderosos. $([Environment]::NewLine)Você veio para Aegisgard em busca de um lugar para morar, novas aventuras e desafios para enfrentar. Encontrou este reino a partir de lendas ​​sobre grandes poderes e riquezas incontáveis ​​que aguardam aqueles que decidem explorar os incríveis lugares deste mundo"
+    Write-Host "Ao chegar em Aegisgard, você toma rumo a uma das grandes cidades, chamada priori.
+Durante o caminho encontra muitos cidadãos que estão passeando por ali,
+alguns cavaleiros passam por você, fazendo sua ronda pelas ruas próximas da cidade.
+Chegando à cidade você se depara com alguns magos elementais treinando com espantalhos,
+eles têm os mais diversos poderes, o mais perto da entrada de Priori
+ataca um enorme bloco de terra na direção do boneco, fazendo o quase quebrar a estaca de madeira
+em que está pendurado, mais adiante encontra-se um mago de fogo, seu espantalho já está parecendo um carvão,
+possivelmente está a um bom tempo treinando, além destes ainda há magos 
+de água e ar que estão começando seus treinos. Você chegou à entrada de Priori, 
+os magos estão descansando à sua direita em um bar ao lado do portal de entrada, 
+enquanto do outro lado há um grupo de cavaleiros conversando sobre algo que você não consegue ouvir. 
+Então você decide: $([Environment]::NewLine)
+1-Ir falar com os magos para conhecer como funcionam os treinos e as lutas dentro de Priori.
+2-Conversar com os cavaleiros, para pedir informações sobre o reino e a cidade e se informar onde encontrar algum trabalho e moradia.
+3-Seguir explorando a cidade sozinho, você vai adentrando a cidade e vendo o que ela lhe oferece.
+4-Olhar o mapa na entrada e procurar uma moradia onde você possa se estabelecer."
+    [double]$escolha1 = Read-Host "Digite o número da sua escolha" #Pede que o jogador insira o número da escolha dele e o transforma em um número inteiro e não em string
+
+    while ($escolha1 -lt 1 -or $escolha1 -gt 4){ #Cria um laço de repetição para que toda vez que o usuário digitar um número abaixo ou acima da quantidade de opções, a mensagem abaixo será exibida
+    [double]$escolha1 = Read-Host "Opção inválida, tente novamente" #Pede para o jogador inserir novamente a escolha pois a opção digitada anteriormente é inválida
+    }
+    clear-host
+    if ($escolha1 -eq 1){ #Condição para ver o que o jogador optou fazer ao chegar em Priori
+        Write-Host "Aproximando-se da mesa onde os magos se encontram, eles recebem você com muita educação,
+lhe oferecendo um lugar para se sentar. Com isso você puxa uma cadeira e começa a questionar
+sobre como funcionam os treinos e para o que serve o grande estádio no centro da cidade,
+então o mago de fogo explica que para treinar é simples:
+você só precisa chegar cedo ou então conversar com quem estiver usando um dos bonecos para revezar com você,
+o povo dessa cidade é bem tranquilo. Em relação ao estádio,
+ali ocorrem batalhas entre os que decidirem participar, é um dos maiores eventos que acontecem em Priori.
+Após fazer amizade com os magos, você decide ir em busca de um lugar para ficar e um trabalho.
+Então, no centro da cidade você se depara com diversas lojas,
+casas para alugar, missões por recompensa, entre outros:$([Environment]::NewLine)
+1-Trabalhar em uma loja: 
+Você decide trabalhar em uma pequena marcenaria, onde um senhor de idade lhe oferece uma casa em troca de trabalho.
+2-Alugar uma casa: 
+Você opta por alugar uma pequena casa, devido ao pouco dinheiro que você tem, e pegar um trabalho de guarda noturno.
+3-Missões por recompensa: 
+Você escolhe trabalhar realizando certas missões para cidade em troca de recompensa, com o dinheiro recebido você 
+paga um pequeno aluguel à algum conhecido na aldeia.
+4-Realizar favores à cidade em troca de moradia: 
+Você decide ajudar a população da cidade, trabalhando como um servidor público, assim recebendo uma moradia 
+gratuita por prestar serviços ao reino."
+        [double]$escolha1 = Read-Host "Digite o número da sua escolha"
+        Clear-Host
+    } 
+    elseif ($escolha1 -eq 2){
+        Write-Host "Os cavaleiros que estavam em um grupo conversando não te recebem de uma forma muita gentil, 
+talvez o assunto deles era algo sério, mas ao verem que você é novo na cidade eles se acalmam 
+e perguntam o que você deseja falar com eles, então questiona sobre onde encontrar uma moradia e trabalho, 
+com isso os guardas te indicam procurar pelo centro da cidade onde encontrará diversas casas para alugar 
+e trabalhos, como missões para realizar. 
+Em seguida, você os agradece e segue em direção a onde o cavaleiro estava apontando. 
+Ao chegar avista diversas casas e placas oferecendo trabalhos:$([Environment]::NewLine)
+1-Trabalhar em uma loja: 
+Você decide trabalhar em uma pequena marcenaria, onde um senhor de idade lhe oferece uma casa em troca de trabalho.
+2-Alugar uma casa: 
+Você opta por alugar uma pequena casa, devido ao pouco dinheiro que você tem, e pegar um trabalho de guarda noturno.
+3-Missões por recompensa: 
+Você escolhe trabalhar realizando certas missões para cidade em troca de recompensa, com o dinheiro recebido você 
+paga um pequeno aluguel à algum conhecido na aldeia.
+4-Realizar favores à cidade em troca de moradia: 
+Você decide ajudar a população da cidade, trabalhando como um servidor público, assim recebendo uma moradia 
+gratuita por prestar serviços ao reino."
+        [double]$escolha1 = Read-Host "Digite o número da sua escolha"
+        Clear-Host
+    }
+    elseif ($escolha1 -eq 3){ 
+        Write-Host "Você sai explorando a cidade e conhecendo diversas pessoas, vendo as lojas e pequenas conveniências da cidade,
+ao chegar no centro você encontra diversas placas com informações sobre trabalhos e casas para alugar.
+Enquanto você procura um bom lugar para se hospedar alguém toca seu ombro,
+ao se virar você se depara com um amigo de infância, Teodoro, ele percebe que você está procurando um lugar para ficar,
+então lhe oferece uma moradia em sua casa, como são amigos a um bom tempo ele deixa você morar de graça,
+apenas pede que você cuide da casa e o ajude em alguns serviços quando precisar.
+Então você decide:$([Environment]::NewLine)
+1-Aceitar: Você aceita ir morar com seu amigo e procurar algum trabalho posteriormente.
+2-Recusar: Você decide por não morar com seu amigo e então ir em busca de uma casa para alugar."
+#linha 96: $([Environment]::NewLine) serve para dar uma quebra de linha
+        [double]$escolha2 = Read-Host "Digite o número da sua escolha"
+
+        while ($escolha2 -lt 1 -or $escolha2 -gt 2){
+        [double]$escolha2 = Read-Host "Opção inválida, tente novamente"
+        }
+        if ($escolha2 -eq 1){
+            Clear-Host
+            Write-host "Seu amigo fica muito empolgado com a ideia e te leva até a sua casa.
+Durante o caminho ele vai te apresentando a cidade,
+mostrando onde encontrar as coisas que precisar, como lojas, bares, guardas, missões, etc.
+Ao chegar na casa dele, Teodoro lhe apresenta sua moradia,
+como os cômodos e onde pode-se encontrar comidas e outras coisas que possa precisar durante o dia,
+e mostra onde você irá dormir."
+            $continuar = Read-host "Aperte 'enter' para continuar o jogo"
+            clear-host
+        }
+        else{
+            clear-host
+            Write-Host "Teodoro fica meio chateado, pois esperava que você escolhesse ficar na casa dele,
+mas ele leva numa boa e até oferece ajuda para você encontrar um trabalho e outro lugar para morar.
+Então você encontra uma marcenaria em que um senhor lhe oferece moradia em troca de trabalho."
+            $continuar = Read-host "Aperte 'enter' para continuar o jogo"
+            clear-host
+        }
+    }
+    elseif ($escolha1 -eq "4"){
+        Write-Host "Ao ler o mapa você encontra muitos pontos onde há moradia e trabalho para você. 
+Ao analisar o mapa você escolhe:$([Environment]::NewLine)
+1-Trabalhar em uma loja: 
+Você decide trabalhar em uma pequena marcenaria, onde um senhor de idade lhe oferece uma casa em troca de trabalho.
+2-Alugar uma casa: 
+Você opta por alugar uma pequena casa, devido ao pouco dinheiro que você tem, e pegar um trabalho de guarda noturno.
+3-Missões por recompensa: 
+Você escolhe trabalhar realizando certas missões para cidade em troca de recompensa, com o dinheiro recebido você 
+paga um pequeno aluguel à algum conhecido na aldeia.
+4-Realizar favores à cidade em troca de moradia: 
+Você decide ajudar a população da cidade, trabalhando como um servidor público, assim recebendo uma moradia 
+gratuita por prestar serviços ao reino."
+        $escolha1 = Read-Host "Digite o número da sua escolha"
+        Clear-Host
+    }
+    #Capítulo 2
+    Write-Host "CAPÍTULO 2: A descoberta da missão"
+    Write-Host "Após decidir onde você irá trabalhar, você decide ir dormir pois está anoitecendo. 
+Pela manhã você acorda com um carro de notícias passando próximo de onde você mora, 
+ele anuncia que irá acontecer um evento no estádio no centro da cidade e convida todos 
+a irem assistir as grandes lutas que ocorrerão. Em busca de entender melhor o que é este evento, 
+você vai para a rua e encontra um grupo de pessoas com Feéricos, gigantes e alguns magos, 
+você decide se aproximar deles e perguntar o que é que irá acontecer que o carro de notícia estava dizendo, 
+então um dos Feéricos começa a lhe explicar que irá acontecer um evento que ocorre no mínimo 2 vezes ao ano, 
+nele toda a cidade se reúne dentro daquele enorme estádio para ver os participantes competirem e 
+demonstrarem seus poderes e habilidades a partir de lutas, o vencedor recebe um grande prêmio em dinheiro e 
+o perdedor ou morre na luta ou desiste e é exilado da cidade."
+    
+    $continuar = Read-host "Aperte 'enter' para continuar o jogo" #Dá uma pausa na narrativa e só continua após o usuário digitar 'enter'
+    Clear-Host #Limpa o terminal, para não ficar muito texto na tela
+    
+    Write-Host "Você continua naquele grupo, conversando com eles sobre a cidade e contando sobre 
+experiências de vida, durante a conversa um homem chega correndo até onde você e os outros
+se encontram e começa a contar sobre um tesouro perdido localizado ao leste de Aegisgard, 
+numa grande caverna na vila esquecida de Sallorin. 
+Ele avisa que lá é uma região muito perigosa, cheia de criaturas amedrontadoras que se 
+escondem nas sombras da vila, dentro da caverna não é diferente, ele diz que para chegar ao tesouro 
+é preciso passar por muitos desafios, armadilhas e inimigos, termina dizendo que descobriu isso 
+ao ouvir dois cavaleiros conversando. Após o homem ir embora, alguns dos magos decidem ir até a vila 
+para tentar encontrar o tal tesouro, com isso você escolhe ir também, em busca do dinheiro e de uma aventura."
+    
+    $continuar = Read-host "Aperte 'enter' para continuar o jogo"
+    Clear-Host 
+    
+    Write-Host "Ao sair de Priori, você encontra dois caminhos que levam até a cidade abandonada, 
+o primeiro caminho é o mais curto, mas você precisará passar por ruas estreitas e uma ponte 
+aos pedaços que passa por cima de um enorme cânion, já o segundo caminho é o mais longo, 
+nele você terá de passar por uma floresta muito escura em que diversos guerreiros e exploradores 
+que decidiram seguir por ele não chegaram ao final:
+1-Ponte do Abismo: Você decide seguir pelo caminho mais curto.
+2-Floresta das sombras: Você decide seguir pelo caminho mais longo."
+    [double]$escolha2 = Read-Host "Digite o número da sua escolha"
+
+    while ($escolha2 -lt 1 -or $escolha2 -gt 2){
+        [double]$escolha2 = Read-Host "Opção inválida, tente novamente"
+    }
+    if ($escolha2 -eq 1){ #Condição para ver se o jogador decidiu ir pelo caminho da ponte
+        Clear-Host
+        if ($classe -eq 1){
+            Write-Host "Adentrando neste caminho você chega a ponte sem nenhum problema, foi um caminho tranquilo, 
+porém quando você se aproxima da ponte um enorme troll aparece e lança sua arma para longe. 
+O que você decide fazer para derrotá-lo e seguir sua jornada:
+1-Controla o inimigo pela água em seu corpo.
+2-Congelar: Você congela o inimigo por um certo tempo.
+3-Correr e tentar passar pelo Troll sem lutar.
+4-Criar uma neblina: Você cria uma neblina em volta do inimigo dificultando a sua visão."
+            [double]$escolha3 = Read-Host "Digite o número da sua escolha"
+
+            while ($escolha3 -lt 1 -or $escolha3 -gt 4){
+            [double]$escolha3 = Read-Host "Opção inválida, tente novamente"
+            }
+            if ($escolha3 -eq 1){
+                Write-Host "A partir do controle da água, como um ser é composto por uma grande quantidade de água
+você é capaz de controlá-lo, assim você faz com que o Troll ande em direção ao Cânion contra sua vontade,
+então o grande guarda da ponte cai dentro daquela cratera, assim deixando o caminho até a cidade livre."
+                $continuar = Read-host "Aperte 'enter' para continuar o jogo"
+                Clear-Host
+                $vida = 1 #Salva o valor 0 para representar que o jogo acabou, mais pra frente utiliza-se um if para finalizar o jogo ou continuar
+            }
+            elseif ($escolha3 -eq 2){
+                Write-Host "Após congelar o inimigo, como não possui muito tempo, você sai correndo em direção a Sallorin,
+por sorte o gelo resiste bem e o Troll só consegue se soltar do gelo após você já ter chegado na entrada da cidade."
+                $continuar = Read-host "Aperte 'enter' para continuar o jogo"
+                $vida = 1
+            }
+            elseif ($escolha3 -eq 3){
+                Write-Host "O Troll vê você correndo em direção a ponte e percebe que seu objetivo é passar por ele sem lutar, 
+estranhamente ele deixa você chegar até a ponte sem nenhum problema, entretanto quando já está quase na 
+metade o guarda desta ponte solta as estacas que a seguram, fazendo assim a ponte desabar derrubando 
+você dentro do cânion. 
+Infelizmente você não conseguiu atravessar a ponte a tempo e sua jornada acabou aqui."
+                $continuar = Read-host "Aperte 'enter' para continuar o jogo"
+                $vida = 0
+            }
+            elseif ($escolha3 -eq 4){
+                Write-Host "Você cria uma neblina em toda a área onde o inimigo se encontra, assim dificultando a visão dele
+assim como a sua. Com isso você tenta ir até a ponte sem ser visto, mas como ambos estão perdidos nessa neblina,
+você vai andando devagar tomando cuidado para não fazer barulho, porém quando começa a ver o início da ponte
+você tropeça em sua arma que havia sido jogada pelo Troll, então este corre em direção ao barulho gerado com sua queda,
+assim te encontrando e atacando-o com seu enorme machado.
+Infelizmente você não conseguiu escapar e sua jornada acabou aqui"
+                $continuar = Read-host "Aperte 'enter' para continuar o jogo"
+                Clear-Host 
+                $vida = 0
+            }
+        }
+        else{
+            Write-Host "Adentrando neste caminho você chega a ponte sem nenhum problema, foi um caminho tranquilo, 
+porém quando você se aproxima da ponte um enorme troll aparece e lança sua arma para longe. 
+O que você decide fazer para derrotá-lo e seguir sua jornada:
+1-Você puxa de seu bolso uma adaga e arremessa diretamente na cabeça do Troll.
+2-Você utiliza de sua furtividade para ir até o inimigo se espreitando pelas árvores.
+3-Correr e tentar passar pelo Troll sem lutar.
+4-Bomba de fumaça: Você lança uma bomba de fumaça no pé do inimigo, o que dificulta sua visão."
+            [double]$escolha3 = Read-Host "Digite o número da sua escolha"
+
+            while ($escolha3 -lt 1 -or $escolha3 -gt 4){
+                [double]$escolha3 = Read-Host "Opção inválida, tente novamente"
+            }
+            if ($escolha3 -eq 1){
+                Write-Host "Ao lançar a adaga o inimigo não se esquiva, porém a faca acerta a pele grossa de sua testa,
+causando apenas um arranhão, com isso o Troll se enfurece e corre em sua direção te agarrando pela perna e
+te arremessando contra uma árvore, enquanto você está no chão, após o impacto, ele vai até você e ataca seu 
+tronco com o enorme machado que carrega em suas costas. 
+Infelizmente você não conseguiu escapar e sua jornada acabou aqui."
+                $continuar = Read-host "Aperte 'enter' para continuar o jogo"
+                Clear-Host
+                $vida = 0 
+            }
+            elseif ($escolha3 -eq 2){
+                Write-Host "Ótima estratégia, o Troll não percebe para onde você foi, com essa vantagem você aparece 
+em suas costas o atacando com uma faca próximo de seu pescoço, o que o derruba no chão, após isso você 
+consegue entrar facilmente na cidade."
+                $continuar = Read-host "Aperte 'enter' para continuar o jogo"
+                $vida = 1
+            }
+            elseif ($escolha3 -eq 3){
+                Write-Host "O Troll vê você correndo em direção a ponte e percebe que seu objetivo é passar por ele sem lutar, 
+estranhamente ele deixa você chegar até a ponte sem nenhum problema, entretanto quando já está quase na 
+metade o guarda desta ponte solta as estacas que a seguram, fazendo assim a ponte desabar derrubando 
+você dentro do cânion. 
+Infelizmente você não conseguiu atravessar a ponte a tempo e sua jornada acabou aqui."
+                $continuar = Read-host "Aperte 'enter' para continuar o jogo"
+                $vida = 0
+            }
+            elseif ($escolha3 -eq 4){
+                Write-Host "Ao jogar a bomba de fumaça que estava em sua bolsa, o Troll é coberto por uma densa nuvem de
+fumaça, o que faz com que ele não enxergue muito bem, então você utiliza disso para passar por ele despercebido
+e assim atravessar a ponte para Sallorin em segurança."
+                $continuar = Read-host "Aperte 'enter' para continuar o jogo"
+                Clear-Host 
+                $vida = 1
+            }
+        }
+    } #Final de se o jogador for pela ponte
+    else{ #Se não for pela ponte ele irá pela floresta
+        Clear-Host
+        Write-Host "Mesmo sabendo das terríveis histórias sobre essa floresta você decide seguir seu caminho por ela. 
+Ao se aprofundar na floresta você percebe que realmente é muito escuro então decide acender uma tocha que 
+estava dentro da sua mochila para iluminar o trajeto. durante o caminho você escuta diversos sons estranhos 
+vindo do meio das árvores, porém um barulho específico chama sua atenção, um grunhido muito alto ecoa de trás 
+das árvores a sua direita. O que você faz:
+1-Continua o caminho ignorando o som.
+2-Decide averiguar o que está acontecendo."
+        [double]$escolha3 = Read-Host "Digite o número da sua escolha"
+
+        while ($escolha3 -lt 1 -or $escolha3 -gt 2){
+        [double]$escolha3 = Read-Host "Opção inválida, tente novamente"
+        }
+        if ($escolha3 -eq 1){ #Escolha de não ir ver o que é o som
+            Clear-Host
+            if ($classe -eq 2){
+                Write-Host "Você decide ignorar os barulhos que vêm da escuridão da floresta e segue seu caminho até a cidade. 
+Um pouco mais a frente, chegando ao final da floresta você se depara com um enorme dragão elétrico protegendo 
+a entrada de Sallorin, que ao notar sua presença dispara um raio em sua direção, por sorte você consegue esquivar 
+a tempo e procurar uma proteção temporária, uma rocha à sua esquerda. 
+Você terá que lutar para chegar a cidade que o dragão está protegendo, então o que você faz:
+1-Você puxa de seu bolso uma adaga e arremessa diretamente na cabeça do inimigo.
+2-Você utiliza de sua furtividade para ir até o dragão se espreitando pelas árvores.
+3-Correr e tentar passar pelo inimigo sem lutar.
+4-Bomba de fumaça: Você lança uma bomba de fumaça no pé do dragão, o que dificulta sua visão."
+                [double]$escolha4 = Read-Host "Digite o número da sua escolha"
+
+                while ($escolha4 -lt 1 -or $escolha4 -gt 4){
+                [double]$escolha4 = Read-Host "Opção inválida, tente novamente"
+                }
+                if ($escolha4 -eq 1){
+                    Write-Host "Por sorte o monstro de raio não consegue desviar da sua faca e é acertado bem no olho, 
+com isso ele fica vulnerável e incapaz de atacar por um curto tempo, então é preciso aproveitar este tempo:
+1-Correr em direção ao dragão e atacá-lo na barriga.
+2-Aproveitar que ele está vulnerável para passar por ele sem lutar e entrar em Sallorin."
+                    [double]$escolha5 = Read-Host "Digite o número da sua escolha"
+
+                    while ($escolha5 -lt 1 -or $escolha5 -gt 2){
+                    [double]$escolha5 = Read-Host "Opção inválida, tente novamente"
+                    }
+                    if ($escolha5 -eq 1){
+                        Write-Host "Ao se aproximar do dragão ele sente sua presença e começa a pular de um lado para o 
+outro em busca de te acertar com sua enorme pata. 
+Infelizmente ele consegue te atingir e sua jornada acaba aqui."
+                        $continuar = Read-host "Aperte 'enter' para continuar o jogo"
+                        $vida = 0
+                    }
+                    else{
+                        Write-Host "Como o dragão não consegue te ver tão bem e nem te atacar, você consegue passar por ele
+despercebido e entrar na vila de Sallorin sem nenhum problema."
+                        $continuar = Read-host "Aperte 'enter' para continuar o jogo"
+                        $vida = 1
+                    }
+                }
+                elseif ($escolha4 -eq 2){
+                    Write-Host "Ótima estratégia, o dragão não percebe para onde você foi, com essa vantagem você aparece 
+em suas costas atacando a perna do monstro, o que o faz cair, após isso você consegue entrar facilmente na cidade."
+                    $continuar = Read-host "Aperte 'enter' para continuar o jogo"
+                    $vida = 1
+                }
+                elseif ($escolha4 -eq 3){
+                    Write-Host "Ao sair de trás de seu esconderijo, a criatura de raios percebe você correndo em sua direção e 
+começa a atirar diversos relâmpagos em você, por sorte nenhum te atinge. Entretanto quando você chega mais 
+perto do dragão ele começa a pular de um lado pro outro em busca de te acertar com sua enorme pata. 
+Infelizmente ele consegue te atingir e sua jornada acaba aqui."
+                    $continuar = Read-host "Aperte 'enter' para continuar o jogo"
+                    $vida = 0
+                }
+                elseif ($escolha4 -eq 4){
+                    Write-Host "Ao jogar a bomba de fumaça que estava em sua bolsa, o dragão é coberto por uma densa nuvem de
+fumaça, o que faz com que ele não enxergue muito bem, então você utiliza disso para passar por ele despercebido
+e assim chegar na entrada de Sallorin em segurança."
+                    $continuar = Read-host "Aperte 'enter' para continuar o jogo"
+                    $vida = 1
+                }
+            }
+            else {#Se a classe for igual a 1, mago de água
+                Write-Host "Você decide ignorar os barulhos que vêm da escuridão da floresta e segue seu caminho até a cidade. 
+Um pouco mais a frente, chegando ao final da floresta você se depara com um enorme dragão elétrico protegendo 
+a entrada de Sallorin, que ao notar sua presença dispara um raio em sua direção, por sorte você consegue esquivar 
+a tempo e procurar uma proteção temporária, uma rocha à sua esquerda. 
+Você terá que lutar para chegar a cidade que o dragão está protegendo, então o que você faz:
+1-Controla o inimigo pela água em seu corpo.
+2-Congelar: Você congela o inimigo por um certo tempo.
+3-Correr e tentar passar pelo dragão sem lutar.
+4-Criar uma neblina: Você cria uma neblina em volta do inimigo dificultando a sua visão"
+                [double]$escolha4 = Read-Host "Digite o número da sua escolha"
+
+                while ($escolha4 -lt 1 -or $escolha4 -gt 4){
+                [double]$escolha4 = Read-Host "Opção inválida, tente novamente"
+                }
+                if ($escolha4 -eq 1){
+                    Write-Host "Ao começar a controlar o dragão, este fica desesperado ao perceber que esta se movendo
+contra sua vontade, com isso ele começa a lutar contra o seu poder, soltando diversos raios em busca de escapar
+daquilo, então você ganha tempo para passar por ele e chegar até Sallorin, sem muitas problemas. 
+Ao correr até a entrada, por garantia você congela o inimigo para não correr o risco dele pisar em você,
+assim  chegando a entrada da vila esquecida tranquilamente"
+                    $continuar = Read-host "Aperte 'enter' para continuar o jogo"
+                    $vida = 1
+                }
+                elseif ($escolha4 -eq 2){
+                    Write-Host "Após congelar o inimigo, como não possui muito tempo, você sai correndo em 
+direção a Sallorin, porém chegando perto da entrada o dragão consegue quebrar o gelo com um raio
+invocado do céu por ele, então ao ver você muito perto de entrar ele avança e acaba com você 
+em uma mordida só."
+                    $continuar = Read-host "Aperte 'enter' para continuar o jogo"
+                    $vida = 0
+                }
+                elseif ($escolha4 -eq 3){
+                    Write-Host "Ao sair de trás de seu esconderijo, a criatura de raios percebe você correndo em sua direção e 
+começa a atirar diversos relâmpagos em você, por sorte nenhum te atinge. Entretanto quando você chega mais 
+perto do dragão ele começa a pular de um lado pro outro em busca de te acertar com sua enorme pata. 
+Felizmente, você foi rápido o suficiente, então ele não conseguiu te atingir, assim podendo entrar em Sallorin"
+                    $continuar = Read-host "Aperte 'enter' para continuar o jogo."
+                    $vida = 1
+                }
+                elseif ($escolha4 -eq 4){
+                    Write-Host "Assim que você cria uma enorme neblina que cobre toda a área onde o inimigo se encontra, 
+você dificulta a visão dele assim como a sua, com o objetivo de chegar até a cidade sem lutar, já que você não
+enxerga o dragão, você vai em passos silenciosos, mas como isso não é o seu forte o dragão te escuta e então
+lança um raio muito próximo de você, que te faz cair no chão, após a neblina se dissipar um pouco o monstro te vê
+caido no chão e avança para finalizar o que começou, assim te esmagando com sua enorme pata."
+                    $continuar = Read-host "Aperte 'enter' para continuar o jogo"
+                    $vida = 0
+                }
+            }
+        }
+        else{ #Escolha de averiguar o barulho na floresta
+            Write-Host "Ao entrar no meio das árvores você descobre que os estranhos barulhos eram de um alce
+que estava preso em uma armadilha colocada por um caçador. Então, após ajudar o animal, você olha
+para onde o alce saiu correndo e percebe que é um outro caminho que leva até a entrada de Sallorin,
+com isso você decide seguir por ele já que aparenta ser uma estrada mais tranquila do que as outras.
+Você estava correto, realmente era um caminho mais fácil e agora já está chegando na vila abandonada."
+            $continuar = Read-Host "Aperte 'enter' para continuar o jogo"
+            $vida = 1
+        }
+    } #Final da condição se o jogador for pela floresta
+    if ($vida -eq 0){ #Condição para ver se o jogador morreu, se sim a mensagem abaixo é exibida e o jogo para
+        Clear-Host
+        Write-Host "A sua jornada chegou ao fim após ser morto na busca do tesouro de Sallorin."
+    }
+    else{ #Se o jogador não tiver morrido, ou seja, não estiver com vida = 0 o jogo continua
+
+    #capítulo 3
+    Clear-Host
+    Write-Host "CAPÍTULO 3: A Vila esquecida"
+    Write-Host "Você conseguiu passar por todos os desafios que encontrou em seu caminho, chegando até a 
+vila esquecida de Aegisgard. Após passar da entrada da cidade você consegue avistar a caverna 
+em que o tal tesouro se encontra, então segue em direção a ela, como não está muito longe você 
+rapidamente chega em sua entrada. Ao entrar, você se depara com diversas armas e armaduras de 
+cavaleiros que possivelmente já tentaram explorar as profundezas deste lugar, mesmo que isso assuste, 
+você ignora seu medo e continua adentrando a caverna."
+    $continuar = Read-Host "Aperte 'enter' para continuar o jogo"
+    Clear-Host
+    Write-Host "Após andar alguns metros você pisa em uma placa do chão que aciona algo mais a frente, 
+ao olhar melhor vê um objeto vindo muito rápido em sua direção, por sorte seu reflexo é bom e 
+consegue se esquivar, mas com isso você percebe que chegou a primeira área da caverna, 
+a sala das armadilhas, então continua andando com muito cuidado para não ser pego por nenhuma. 
+Após um tempo andando você se depara com três caminhos, um deles leva ao caminho correto para 
+o tesouro as outras ninguém sabe o que há, sendo assim escolha o caminho certo a seguir:
+1-Caminho da esquerda: Você não vê nada no fundo deste corredor, mas consegue escutar alguns barulhos de passos ao se aproximar.
+2-Caminho central: Você vê apenas uma porta no final deste corredor e ao chegar perto não consegue escutar nada.
+3-Caminho da direita: Não é possível ver o final do corredor e nem ouvir nada ao se aproximar dele."
+    [double]$escolha1 = Read-Host "Digite o número da sua escolha"
+
+    while ($escolha1 -lt 1 -or $escolha1 -gt 3){
+        [double]$escolha1 = Read-Host "Opção inválida, tente novamente"
+    }
+    if ($escolha1 -eq 1){
+       Write-Host "Você decide seguir pela esquerda, ao adentrar neste caminho você descobre que este era o 
+correto e que os barulhos de passos eram apenas um porco que se perdeu pela enorme caverna. 
+Chegando no final você encontra a porta que leva para o próximo desafio, então ao abri-la você 
+precisa escolher a porta correta, há uma charada que você precisa desvendar e assim entrar na porta com a resposta certa."
+        $vida = 1
+        $continuar = Read-Host "Aperte 'enter' para continuar o jogo"
+    }
+    elseif ($escolha1 -eq 2){
+        Write-Host "Vendo a porta em sua frente você corre em sua direção sem pensar duas vezes a abre com um empurrão, 
+porém após passar pela porta ela se fecha imediatamente e uma enorme rocha cai em sua frente, tornando 
+impossível sair por ali. Quando percebe que está preso nesta sala sem saber como sair, 
+você nota que as paredes estão começando a se fechar em sua direção, com isso você corre 
+para ver se encontra algo no final do corredor. Quase sendo esmagado pelas paredes ao seu lado, 
+você encontra uma porta no final da sala, mas infelizmente ela está emperrada e já é tarde demais, 
+as paredes te esmagam no momento em que tenta destrancar a porta com o canivete de sua mochila."
+           $vida = 0
+           $continuar = Read-Host "Aperte 'enter' para continuar o jogo"
+    }
+    else {
+        Write-Host "Você segue por este caminho com muita cautela, já que não é capaz de ver e nem escutar nada. 
+Após um tempo andando, você percebe que as paredes estão cheias de vinhas, o que não parece muito 
+comum já que não haviam tantas antes de entrar nesta área, mas você continua mesmo assim, 
+um pouco mais a frente acaba pisando novamente em uma placa no chão, esta não ativou uma armadilha 
+como antes e sim várias, quando olha para a esquerda uma pedra pendurada em uma corda vem em sua direção, 
+você se abaixa conseguindo esquivar, porém ao se levantar diversas flechas são disparadas em sua direção, 
+ficando difícil de desviar de todas, uma o acerta na perna, outra na barriga e por último seu braço é atingido, 
+infelizmente você não resiste e finaliza sua jornada aqui nessa enorme caverna."
+        $vida = 0
+        $continuar = Read-Host "Aperte 'enter' para continuar o jogo"
+    }
+    if ($vida -eq 0){
+        Clear-Host
+        Write-Host "A sua jornada chegou ao fim após ser morto na busca do tesouro de Sallorin."
+}
+else { # teste para ver se vai realmente parar o jogo ao ficar com 0 vidas
+#Capítulo 4
+    Clear-Host
+    Write-Host "CAPÍTULO 4: O último desafio"
+    Write-Host "Chegando ao final do corredor você encontra a porta que leva para o próximo desafio, 
+então ao abri-la você descobre o que precisa fazer para finalmente chegar até o tesouro. 
+À sua frente há duas portas com uma resposta escrita em cima de cada uma, ao lado você 
+encontra uma charada que você precisa resolver e entrar na porta que possui a resposta correta. 
+Para chegar em seu objetivo é preciso passar por dois enigmas, se escolher a resposta correta 
+você vai para a pergunta seguinte e depois para o tesouro."
+
+    $continuar = Read-Host "Aperte 'enter' para continuar o jogo"
+    Clear-Host 
+    Write-Host "Primeira charada: Quanto mais houver de mim, menos você verá. Quem sou eu?
+1-A neblina.
+2-A escuridão."
+    [double] $escolha1 = Read-Host "Digite o número da sua escolha"
+    if ($escolha1 -eq 1){
+        Write-Host "Resposta incorreta. Você passa pela porta e cai em um enorme poço
+sem fim, assim finalizando a sua jornada em Aegisgard"
+        $vida = 0
+        $continuar = Read-Host "Aperte 'enter' para continuar o jogo"
+
+        Clear-Host
+        Write-Host "A sua jornada chegou ao fim após ser morto na busca do tesouro de Sallorin."
+    }
+    else { #Se a resposta for 2, esta correta, então continua o jogo
+            Write-Host "Resposta correta! Você segue para a próxima sala e encontra o segundo enigma"
+            $continuar = Read-Host "Aperte 'enter' para continuar o jogo"
+            #segundo enigma
+            Write-Host "O que é o que é, é alta quando jovem e baixinha quando fica velha. Além disso, é rápida quando é 
+magra e lenta quando é gorda.
+1-A vela
+2-A fogueira"
+        [double]$escolha2 = Read-Host "Digite o número da sua escolha"
+        while ($escolha2 -lt 1 -or $escolha2 -gt 2){
+            [double]$escolha2 = Read-Host "Opção inválida, tente novamente"
+        }
+        if ($escolha2 -eq 1){
+            Clear-Host
+            Write-Host "Parabéns você passou por todos os desafios e agora chegou à área onde se encontra o tesouro. 
+A sala é muito grande e está repleta de riquezas, mas o que mais chama a sua atenção é o grande 
+baú no topo de um pedestal iluminado por um feixe de luz vindo do teto da caverna, 
+ali está o tesouro então você segue em sua direção, pegando o que consegue de moedas e joias do chão, 
+sobe o pedestal e então pega a caixa em seus braços. Finalmente conseguiu realizar sua missão, 
+agora basta voltar para Priori e decidir o que fazer com todo o dinheiro que conseguiu. 
+Atrás de onde estava o tesouro há uma porta de metal que te leva para o lado de fora, ao puxar 
+a alavanca ao seu lado, a porta se abre junto das pedras da montanha que se movem abrindo o caminho 
+para o lado de fora. Seu caminho até a cidade de Priori foi fácil, graças a passagem encontrada, 
+ao chegar lá você se encontra com alguns amigos que vêm o baú em suas mãos e te parabenizando perguntam 
+como foi sua jornada em busca do tesouro, após você contar sobre tudo, um Feérico que estava junto pergunta 
+o que você irá fazer com todo o dinheiro que conseguiu nesta missão, então o que você decide fazer com a recompensa:
+1-Ficar com todo o dinheiro
+2-Doar o dinheiro para o reino
+3-Doar parte do dinheiro para os necessitados de Aegisgard
+4-Abrir um negócio próprio, como uma loja ou um bar"
+            [double]$escolha3 = Read-Host "Digite o número da sua escolha"
+            Clear-Host
+            while ($escolha3 -lt 1 -or $escolha3 -gt 4){
+            [double]$escolha3 = Read-Host "Opção inválida, tente novamente"
+            }
+            if ($escolha3 -eq 1){
+                Write-Host "Você responde ao Feérico que irá ficar com todo o dinheiro e utilizá-lo para treinamentos 
+e para comprar tudo o que precisar, como ferramentas, armaduras, alimentos, moradia, entre outros. 
+Após a conversa com seus amigos, você segue para o centro buscando uma nova casa para morar, 
+após se instalar em uma grande casa perto de um rio você passa a comprar novas armas e começa a 
+treinar para ficar mais poderoso e preparado para lutar em futuras missões que poderá fazer para o reino. 
+Ao longo de sua vida você realizou muitas tarefas para a cidade, passando por alguns desafios em certas missões, 
+viveu uma vida tranquila em Aegisgard, falta de dinheiro nunca foi um problema, sua história acabou em uma missão, 
+em que você precisava ajudar uma cidade que estava cercada por criaturas perigosas, ao chegar lá você foi 
+morto por uma alcateia que estava de guarda na entrada da cidade mais ao Norte de Aegisgard."
+            }
+            elseif ($escolha3 -eq 2){
+                Write-Host "Ao doar o dinheiro para o reino, em forma de agradecimento, o mesmo irá bancar todas 
+suas despesas e será construída uma estátua em sua homenagem. Devido à sua fama, 
+você foi chamado para todas as comemorações que aconteciam no reino, onde conheceu seu(sua) 
+companheiro(a) e assim se estabeleceu na cidade. Posteriormente, um novo herói surgiu, 
+fazendo você cair no esquecimento. Faleceu anos depois devido a um problema cardíaco."
+            }
+            elseif ($escolha3 -eq 3){
+                Write-Host "Após doar parte de seu dinheiro para os mais pobres do reino, este reconhece seu 
+feito e o ajuda com todas as despesas que tiver em questão de moradia dentro de Aegisgard. 
+Com o dinheiro que sobrou para você, que não foi pouco, foi possível comprar novas ferramentas 
+e armaduras, o que o ajudou a continuar explorando o mundo e a realizar missões para conseguir 
+dinheiro e proteger o reino. 
+Entretanto, em uma de suas missões foi mal calculado o tempo que ficaria fora e, com isso, 
+os recursos que você levou não foram o suficiente, assim faleceu por falta de recursos 
+como água e comida. No dia seguinte de sua morte toda a população de Aegisgard fez uma homenagem 
+a você e a todos seus feitos para o reino."
+            }
+            else{
+                Write-Host "Com parte do dinheiro que conseguiu em Sallorin, você criou um grande bar no centro de Priori, 
+devido a quantidade de dinheiro que possuía você foi capaz de fazer um dos bares mais famosos da região. 
+Posteriormente, a sua conveniência era a mais frequentada de Aegisgard, você continuou com ela até a sua morte, 
+por envenenação de um competidor local. 
+Como seu bar era muito famoso, logo descobriram o motivo e o culpado de sua morte, então este foi preso e seu 
+estabelecimento foi fechado."
+            }
+        } #Final da condição se o jogador acertar a 2° charada
+        else{ #Se o jogador errar o 2° enigma
+            Write-Host "Resposta incorreta. Você passa pela porta e cai em um enorme poço
+sem fim, assim finalizando a sua jornada em Aegisgard"
+            $vida = 0
+            $continuar = Read-Host "Aperte 'enter' para continuar o jogo"
+
+            Clear-Host
+            Write-Host "A sua jornada chegou ao fim após ser morto na busca do tesouro de Sallorin."
+        }
+    } #Final da condição se o jogador acertar a 1° charada
+    }
+} #Final da condição se o jogador estiver vivo
+
+$continuar = Read-Host "Aqui chega o fim da sua história em Aegisgard. Obrigado por jogar"
+Write-Host "Deseja jogar novamente?
+1-Sim
+2-Não"
+$iniciar = Read-Host "Digite o número da sua escolha" #Pede ao usuário se ele deseja continuar ou não o jogo, se digitar 1 o jogo reinicia
+
+} #Final do laço de repetição 
