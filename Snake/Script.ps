@@ -1,0 +1,262 @@
+function desenhacobra
+{
+ 
+  #Apague o segmento da cauda que está desaparecendo
+  $rui.cursorposition = $cauda[0]
+  write-host -foregroundcolor white -backgroundcolor black -NoNewline " " 
+ 
+  #Mova todos os segmentos da cauda para baixo um
+  for ($i=0; $i -lt ($caudacomprimento - 1); $i++)
+  {
+    $cauda[$i].x = $cauda[$i+1].x
+    $cauda[$i].y = $cauda[$i+1].y
+  }
+ 
+  # Defina o último segmento da cauda para a posição atual
+  $cauda[-1].x = $cord.x
+  $cauda[-1].y = $cord.y
+  
+  #Desenhe todos os segmentos da cobra 
+  for ($i=0; $i -lt $caudacomprimento; $i++)
+  {
+    $rui.cursorposition = $cauda[$i]
+    write-host -foregroundcolor white -backgroundcolor white -NoNewline " "
+  }
+}
+
+# Gere uma localização aleatória para a maçã, garantindo que não esteja dentro da cobra
+function movemaca
+{ 
+  $ok = $true;
+  do 
+  {
+    $script:maca.x = get-random -min 2 -max ($rui.WindowSize.width - 2)
+    $script:maca.y = get-random -min 2 -max ($rui.WindowSize.height - 2)
+    $ok=$true
+    for ($i=0; $i -lt $caudacomprimento; $i++)
+    {
+      if (($cauda[$i].x -eq $maca.x) -and ($cauda[$i].y -eq $maca.y))
+      {
+        $ok=$false;
+      }
+    }
+  } While (!$ok)
+}
+
+
+#Desenhe a maçã na tela
+
+function desenhamaca
+{
+  $rui.CursorPosition = $maca
+  write-host -foregroundcolor red -backgroundcolor black "@"
+}
+
+
+# Verifique se a cobra atinge a maçã
+
+function Checkmacahit
+{
+  # Se as coordenadas x/y da cabeça da cobra corresponderem às coordenadas x/y da maçã, a cobra atingiu a maçã
+  if (($cauda[-1].x -eq $maca.x) -and ($cauda[-1].y -eq $maca.y))
+  {
+    # Realoque a maçã
+    movemaca
+    
+    $pontos += 500
+    
+    # Aumente o comprimento da cobra
+    $script:caudacomprimento++
+    $script:cauda += new-object System.Management.Automation.Host.Coordinates
+    $script:cauda[-1].x = $cord.x
+    $script:cauda[-1].y = $cord.y
+  }
+}
+
+
+# Verifique se a cabeça da cobra atinge as paredes da tela
+
+function Checkbateuparede
+{
+  if (($cord.x -eq 0) -or ($cord.y -eq 0) -or ($cord.x -eq $host.ui.rawui.windowsize.width-1) -or ($cord.y -eq $host.ui.rawui.windowsize.height-1))
+  {
+    cls
+    write-host -foregroundcolor red "Você perdeu! Pontuação $pontos"
+    start-sleep -Seconds 3.0
+    exit
+  }
+}
+
+
+
+# Desenhe uma cerca ao redor das bordas da tela.
+
+function desenhabordas
+{
+  $cur = new-object System.Management.Automation.Host.Coordinates
+  $cur.x=0
+  $cur.y=0
+  
+  for ($x=0; $x -lt $host.ui.rawui.windowsize.width; $x++)
+  {
+    $cur.x=$x
+    $cur.y=0
+    $host.ui.rawui.cursorposition = $cur
+    write-host -foregroundcolor black -backgroundcolor white -nonewline "#"
+
+    $cur.y=$host.ui.rawui.windowsize.height-1
+    $host.ui.rawui.cursorposition = $cur
+    write-host -foregroundcolor black -backgroundcolor white -nonewline "#"
+    
+  }
+  
+  for ($y=0; $y -lt $host.ui.rawui.windowsize.height-1; $y++)
+  {
+    $cur.y=$y
+    $cur.x=0
+    $host.ui.rawui.cursorposition = $cur
+    write-host -foregroundcolor black -backgroundcolor white -nonewline "#"
+
+    $cur.x=$host.ui.rawui.windowsize.width-1
+    $host.ui.rawui.cursorposition = $cur
+    write-host -foregroundcolor black -backgroundcolor white -nonewline "#"
+    
+  }  
+}
+
+function Checkcorpocobra
+{
+  for ($i=0; $i -lt $caudacomprimento -1; $i++)
+  {
+    if (($cauda[$i].x -eq $cord.x) -and ($cauda[$i].y -eq $cord.y))
+    {
+      cls
+      write-host -foregroundcolor red "Você perdeu! Pontuação $pontos"
+      start-sleep -Seconds 3.0
+      exit
+    }
+  }
+}
+
+
+# O jogo começa começa aqui
+#Ele precisa ser executado no prompt do PowerShell por conta das interações
+if ($host.name -ne "ConsoleHost") 
+{
+  write-host "Esse jogo só pode ser executado no Prompt do PowerShell"
+  exit
+  $feito=$true
+} 
+
+# Pegue objetos de interface do usuário e defina algumas cores
+$ui=(get-host).ui
+$rui=$ui.rawui
+$rui.BackgroundColor="Black"
+$rui.ForegroundColor="Red"
+cls
+
+# Escreva linhas para garantir que o buffer seja grande o suficiente para cobrir a tela
+for ($i=0; $i -lt $rui.screensize.height; $i++)
+{
+  write-host "" 
+}
+$cord = $rui.CursorPosition
+$salva = $coord
+$cs = $rui.cursorsize
+$rui.cursorsize=0
+$pontos = 0
+
+$feito = $false
+
+$antes = 0
+$depois  = 15
+$dir = 0
+
+$cord.X = $rui.screensize.width/2
+$cord.y = $rui.screensize.height/2
+
+$cord.x = 80
+$cord.Y = 15
+$maca = new-object System.Management.Automation.Host.Coordinates
+desenhabordas;
+movemaca;
+
+$cauda = @()
+$caudacomprimento = 5
+
+for ($i=0; $i -lt $caudacomprimento; $i++)
+{
+  $cauda += new-object System.Management.Automation.Host.Coordinates
+  $cauda[$i].x = $cord.x
+  $cauda[$i].y = $cord.y
+}
+
+while (!$feito)
+{
+  
+  if ($rui.KeyAvailable)
+  {
+    $tecla = $rui.ReadKey()
+    if ($tecla.virtualkeycode -eq -27)
+    {
+      $done=$true
+    }
+    if ($tecla.keydown)
+    {
+      # esquerda
+      if ($tecla.virtualkeycode -eq 37)
+      {
+        $dir=0
+      }   
+      # cima
+      if ($tecla.virtualkeycode -eq 38)
+      {
+        $dir=1
+      } 
+      # direita
+      if ($tecla.virtualkeycode -eq 39)
+      {
+        $dir=2
+      }
+      # baixo
+      if ($tecla.virtualkeycode -eq 40)
+      {
+        $dir=3
+      }
+    }
+  }
+  
+  if ($dir -eq 0)
+  { 
+    $cord.x--;
+  }
+  
+  if ($dir -eq 1)
+  {
+    $cord.y--;
+  }
+  
+  if ($dir -eq 2)
+  {
+    $cord.x++;
+  }
+  
+  if ($dir -eq 3)
+  {
+    $cord.y++;
+  }
+
+  desenhamaca;
+  desenhacobra;
+  Checkbateuparede;
+  Checkcorpocobra;
+  Checkmacahit;
+
+    
+  start-sleep -mil 100
+  
+  $pontos += $caudacomprimento;
+  
+}
+
+$rui.cursorsize=$cs
