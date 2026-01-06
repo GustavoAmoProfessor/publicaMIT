@@ -1,0 +1,60 @@
+# Definindo as perguntas e respostas
+$perguntas = @(
+    "O que e uma CPU?`n a) Central Processor Unit`n b) Central Peripheral Unit`n c) Central Personal Unit`n d) Central Printed Unit`n e) Central Processing Unit",
+    "O que significa RAM?`n a) Rapid Access Memory`n b) Read Access Memory`n c) Random Advanced Memory`n d) Read-Only Memory`n e) Random Access Memory",
+    "Qual e a funcao de uma placa-mae?`n a) Conectar todos os componentes do computador`n b) Armazenar dados permanentemente`n c) Processar dados em alta velocidade`n d) Controlar a refrigeracao do sistema`n e) Produzir energia eletrica",
+    "O que sao perifericos de entrada?`n a) Dispositivos que enviam dados para o computador`n b) Dispositivos que exibem informacoes para o usuario`n c) Dispositivos que armazenam dados permanentemente`n d) Dispositivos que processam dados em alta velocidade`n e) Dispositivos que controlam a refrigeracao do sistema",
+    "Qual componente e responsavel pela exibicao de imagens no monitor?`n a) Memoria RAM`n b) Placa de Som`n c) Placa de Video`n d) Placa de Rede`n e) Placa-Mae",
+    "O que e um disco rigido (HD)?`n a) Dispositivo de armazenamento permanente`n b) Dispositivo de entrada`n c) Dispositivo de processamento`n d) Dispositivo de saida`n e) Dispositivo de entrada e saida",
+    "Qual componente armazena dados permanentemente em um computador?`n a) RAM`n b) CPU`n c) Disco Rigido (HD)`n d) Placa-Mae`n e) Placa de Video",
+    "O que e uma GPU?`n a) Graphical Performance Unit`n b) General Processing Unit`n c) Graphics Peripheral Unit`n d) General Performance Unit`n e) Graphics Processing Unit",
+    "O que e um teclado QWERTY?`n a) Um tipo de impressora`n b) Um tipo de layout de teclado`n c) Um tipo de mouse`n d) Um tipo de monitor`n e) Um tipo de disco rigido",
+    "Qual componente permite que um computador se conecte a uma rede?`n a) Placa de Rede`n b) Placa de Video`n c) Placa de Som`n d) Placa-Mae`n e) CPU",
+    "O que sao slots de expansao em uma placa-mae?`n a) Locais onde voce pode conectar componentes adicionais`n b) Espacos reservados para armazenar dados temporarios`n c) Pecas que controlam a refrigeracao do sistema`n d) Conectores de energia`n e) Areas para exibicao de informacoes",
+    "Qual e a funcao de uma fonte de alimentacao em um computador?`n a) Fornecer energia eletrica para todos os componentes`n b) Controlar a velocidade da CPU`n c) Armazenar dados permanentemente`n d) Exibir imagens no monitor`n e) Processar dados em alta velocidade",
+    "O que e um monitor?`n a) Dispositivo de processamento`n b) Dispositivo de armazenamento permanente`n c) Dispositivo de entrada para digitar texto`n d) Dispositivo de saida que exibe informacoes na tela`n e) Dispositivo de rede",
+    "O que e um mouse?`n a) Dispositivo de rede`n b) Dispositivo de armazenamento permanente`n c) Dispositivo de processamento`n d) Dispositivo de saida para exibir imagens`n e) Dispositivo de entrada para mover o cursor na tela",
+    "O que e um sistema operacional?`n a) Software que gerencia o hardware e fornece servicos para os aplicativos`n b) Software para criar documentos de texto`n c) Dispositivo que controla a refrigeracao do sistema`n d) Componente que armazena dados permanentemente`n e) Hardware que processa dados em alta velocidade",
+    "O que e um drive de CD/DVD-ROM?`n a) Dispositivo de armazenamento permanente`n b) Dispositivo para ler e reproduzir CDs e DVDs`n c) Dispositivo de entrada para digitar texto`n d) Dispositivo de saida para exibir imagens`n e) Dispositivo de rede",
+    "O que e um cabo Ethernet?`n a) Cabo de alimentacao para a CPU`n b) Cabo para conectar perifericos de entrada`n c) Cabo para conectar perifericos de saida`n d) Cabo usado para conectar um computador a uma rede`n e) Cabo para conectar componentes internos",
+    "O que e um software antivirus?`n a) Software para controlar a refrigeracao do sistema`n b) Programa para criar documentos de texto`n c) Componente que armazena dados permanentemente`n d) Dispositivo para exibir imagens`n e) Programa que protege contra ameacas de malware e virus",
+    "O que e um modem?`n a) Componente para armazenar dados permanentemente`n b) Dispositivo para criar documentos de texto`n c) Dispositivo para conectar um computador a internet`n d) Dispositivo para exibir imagens`n e) Componente para processar dados em alta velocidade",
+    "O que e um scanner?`n a) Dispositivo para digitalizar documentos e imagens`n b) Dispositivo para criar documentos de texto`n c) Componente para armazenar dados permanentemente`n d) Dispositivo para exibir imagens`n e) Componente para processar dados em alta velocidade"
+)
+
+# Esta linha cria uma lista chamada $respostasCorretas que contÃ©m as respostas corretas para cada pergunta. A ordem das respostas corresponde Ã  ordem das perguntas.
+$respostasCorretas = @("e", "e", "a", "a", "c", "a", "c", "e", "b", "a", "a", "a", "d", "e", "a", "b", "d", "e", "c", "a")
+
+# Inicializa a pontuaÃ§Ã£o do jogador em zero.
+$score = 0
+
+# Inicia um loop que vai percorrer todas as perguntas. O loop continuarÃ¡ enquanto a variÃ¡vel $i for menor que o comprimento da lista de perguntas ($perguntas.Length).
+for ($i = 0; $i -lt $perguntas.Length; $i++) {
+    # Limpa a tela do console antes de exibir a prÃ³xima pergunta.
+    Clear-Host
+    # Exibe a pergunta atual, onde $i+1 Ã© usado para mostrar o nÃºmero da pergunta (comeÃ§ando com 1).
+    Write-Host "Pergunta $($i+1):"
+    # Exibe a pergunta atual. $perguntas[$i] acessa a pergunta na posiÃ§Ã£o atual do loop.
+    Write-Host $perguntas[$i]
+    # Pede ao usuÃ¡rio para inserir a letra correspondente Ã  resposta que considera correta.
+    $respostaUsuario = Read-Host "Escolha a alternativa correta (a, b, c, d ou e)"
+
+    # Verifica se a resposta do usuÃ¡rio estÃ¡ correta ou nÃ£o. 
+    # if ($respostaUsuario -eq $respostasCorretas[$i]) { ... }: verifica se a resposta do usuÃ¡rio Ã© igual Ã  resposta correta para a pergunta atual.
+    if ($respostaUsuario -eq $respostasCorretas[$i]) {
+        $score++
+        Write-Host "Resposta correta! Pontuacao atual: $score"
+    }
+    # else { ... } serÃ¡ executado se a resposta do usuÃ¡rio estiver incorreta.
+    else {
+        Write-Host "Resposta incorreta. A alternativa correta era $($respostasCorretas[$i]). Pontuacao atual: $score"
+    }
+    # Exibe uma mensagem indicando ao usuÃ¡rio para pressionar a tecla Enter para avanÃ§ar para a prÃ³xima pergunta.
+    Write-Host "Pressione Enter para continuar..."
+    # Aguarda o usuÃ¡rio pressionar Enter antes de continuar para a prÃ³xima pergunta.
+    Read-Host
+# Fim do loop que percorre todas as perguntas.
+}
+# Exibe a pontuaÃ§Ã£o final do jogador apÃ³s o jogo ter sido concluÃ­do. 
+# O valor $score Ã© a pontuaÃ§Ã£o do jogador e $($perguntas.Length) representa o nÃºmero total de perguntas.
+Write-Host "Jogo concluido! Sua pontuacao final e $score de $($perguntas.Length)."
