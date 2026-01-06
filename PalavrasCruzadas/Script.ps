@@ -1,0 +1,98 @@
+# Jogo de Palavras Cruzadas em PowerShell
+
+# Definindo palavras e dicas
+$palavras = @("POTATO", "COMPUTER", "PROGRAMMING", "SCRIPTING")
+$dicas = @("Um vegetal delicioso", "Dispositivo eletrÃ´nico", "Desenvolvimento de software", "AutomatizaÃ§Ã£o de tarefas")
+
+# Inicializando o tabuleiro de palavras cruzadas
+$tabuleiro = @(
+    @("-", "-", "-", "-", "-", "-", "-", "-"),
+    @("-", "-", "-", "-", "-", "-", "-", "-"),
+    @("-", "-", "-", "-", "-", "-", "-", "-"),
+    @("-", "-", "-", "-", "-", "-", "-", "-"),
+    @("-", "-", "-", "-", "-", "-", "-", "-"),
+    @("-", "-", "-", "-", "-", "-", "-", "-")
+)
+
+# FunÃ§Ã£o para exibir o tabuleiro
+function MostrarTabuleiro {
+    Write-Host "  1 2 3 4 5 6 7 8"
+    for ($i = 0; $i -lt $tabuleiro.Length; $i++) {
+        Write-Host ("{0} {1}" -f ($i + 1), ($tabuleiro[$i] -join " "))
+    }
+}
+
+# FunÃ§Ã£o para verificar se a palavra estÃ¡ correta
+function VerificarPalavra {
+    param (
+        [string]$palavra,
+        [int]$linha,
+        [int]$coluna,
+        [string]$direcao
+    )
+
+    $letras = $palavra.ToCharArray()
+
+    for ($i = 0; $i -lt $letras.Length; $i++) {
+        $letraAtual = $letras[$i]
+        $linhaAtual = $linha
+        $colunaAtual = $coluna
+
+        if ($direcao -eq "H") {
+            $colunaAtual += $i
+        } elseif ($direcao -eq "V") {
+            $linhaAtual += $i
+        }
+
+        if ($tabuleiro[$linhaAtual - 1][$colunaAtual - 1] -ne "-" -and $tabuleiro[$linhaAtual - 1][$colunaAtual - 1] -ne $letraAtual) {
+            return $false
+        }
+    }
+
+    for ($i = 0; $i -lt $letras.Length; $i++) {
+        $letraAtual = $letras[$i]
+        $linhaAtual = $linha
+        $colunaAtual = $coluna
+
+        if ($direcao -eq "H") {
+            $colunaAtual += $i
+        } elseif ($direcao -eq "V") {
+            $linhaAtual += $i
+        }
+
+        $tabuleiro[$linhaAtual - 1][$colunaAtual - 1] = $letraAtual
+    }
+
+    return $true
+}
+
+# Loop principal do jogo
+while ($true) {
+    Clear-Host
+    MostrarTabuleiro
+
+    # Exibir dicas
+    Write-Host "`nDicas:"
+    for ($i = 0; $i -lt $palavras.Length; $i++) {
+        Write-Host ("{0}. {1}" -f ($i + 1), $dicas[$i])
+    }
+
+    # Obter a entrada do jogador
+    $numeroPalavra = Read-Host "Escolha uma palavra (1-$($palavras.Length))"
+    $palavraEscolhida = $palavras[$numeroPalavra - 1]
+
+    $linha = Read-Host "Digite a linha inicial"
+    $coluna = Read-Host "Digite a coluna inicial"
+    $direcao = Read-Host "Digite a direÃ§Ã£o (H para horizontal, V para vertical)"
+
+    # Verificar se a palavra pode ser colocada
+    $palavraCorreta = VerificarPalavra -palavra $palavraEscolhida -linha $linha -coluna $coluna -direcao $direcao
+
+    if ($palavraCorreta) {
+        Write-Host "Palavra correta! Pressione Enter para continuar."
+        Read-Host
+    } else {
+        Write-Host "A palavra nÃ£o pode ser colocada nessa posiÃ§Ã£o. Pressione Enter para tentar novamente."
+        Read-Host
+    }
+}
