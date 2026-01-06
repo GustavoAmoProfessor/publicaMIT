@@ -1,0 +1,70 @@
+clear
+# Dicionários de palavras com seus enigmas por tema
+$temas = @{
+    1 = @{
+        "uva" = @("Em vinhos e sobremesas, sou uma delícia;", "Em cachos, sou pequena e redonda;", "Nas videiras, minha casa é encontrada.")
+        "morango" = @("Em sobremesas e saladas, sou um fruto que aprecio;", "Com sabor doce e aroma;", "Vermelho e pequeno, no campo eu floresço.")
+        "manga" = @("Em climas quentes, em árvores me encontro;", "Amarela por dentro, polpa suculenta e um ponto;", "Uma fruta tropical, doce como o encanto.")
+        "kiwi" = @("Sou exótico e singular;", "De sabor doce e azedo, sou difícil de não amar", "Com casca marrom e polpa verde.")
+        "pera" = @("De forma arredondada, mas alongada em meu corpo;", "Minha pele é amarela ou verde, às vezes um tom dourado;", "Sou um fruto da pereira.")
+    }
+    2 = @{
+        "elefante" = @("Com tromba longa e orelhas amplas eu me destaco;", "Em manadas ou solitário, na savana ou na mata;", "Minha memória é lendária.")
+        "coruja" = @("Minha caça é silenciosa, sem qualquer hesitação;", "Sou noturno, meus olhos brilham na escuridão;", "Que predador sou eu?")
+        "leao" = @("Na savana africana, eu sou o rei indomável;", "Com juba majestosa e rugido formidável;", "Que feroz animal sou eu?")
+        "sapo" = @("Com pele úmida e saltos na lagoa, eu vivo;", "Nas noites, canto canções sob a lua, um espetáculo ativo;", "Que anfíbio sou eu?")
+        "aguia" = @("Nas alturas, eu planador, soberano no céu azul;", "Com visão aguda, um mestre no voo;", "Nas lendas e bandeiras, meu semblante é real.")
+    }
+    3 = @{
+        "brasil" = @("Nas praias douradas e na floresta verdejante;", "Com Carnaval e futebol, sou um país vibrante;", "Que nação colorida sou eu?")
+        "japao" = @("Com tradições antigas e tecnologia inovadora em ação;", "Sakura e quimonos, sou uma terra de fascinação;", "Que país insular sou eu?")
+        "egito" = @("No deserto vasto, minha história é milenar;", "Pirâmides e faraós, um passado a desvendar;", "Que país da África eu sou?")
+        "australia" = @("Na terra dos cangurus e coalas, eu habito;", "Com recifes de coral e deserto vermelho infinito;", "Que nação do Hemisfério Sul sou eu?")
+        "russia" = @("No vasto território, minha extensão é infinda;", "Com matrioskas e balé, cultura tão linda;", "Que nação euro-asiática sou eu?")
+    }
+}
+
+# Apresenta as opções de temas para o usuário
+Write-Host "Escolha um tema:"
+Write-Host "1. Frutas"
+Write-Host "2. Animais"
+Write-Host "3. Países"
+
+# Solicita ao usuário que escolha um tema
+$tema_escolhido = Read-Host "Digite o número do tema desejado (1, 2 ou 3)"
+
+# Converte a escolha do usuário para um número inteiro
+$tema_escolhido = [int]$tema_escolhido
+
+# Verifica se o tema escolhido é válido
+if (-not $temas.ContainsKey($tema_escolhido)) {
+    Write-Host "Tema não reconhecido. Escolha um tema válido."
+} else {
+    $tema = $temas[$tema_escolhido]
+    # Inicia o jogo
+    Write-Host "`nBem-vindo ao jogo de adivinhação de palavras!"
+    $palavras_do_tema = $tema.Keys | Sort-Object
+    $pontuacao = 0  # Inicia a pontuação
+
+    foreach ($palavra in $palavras_do_tema) { #sorteia aleatoriamente uma palavra do tema
+        $dicas = $tema[$palavra] #pega as dicas da palavra
+        $tentativas = 3
+
+        Write-Host "`nAdivinhe a palavra:"
+        for ($i = 0; $i -lt $tentativas; $i++) {
+            Write-Host "`nDica: $($dicas[$i])"
+            $resposta = Read-Host "Sua resposta:"
+
+            if ($resposta -eq $palavra) {
+                $pontuacao += (3 - $i) # Atribui pontos com base na tentativa
+                Write-Host "Parabéns! Você acertou a palavra. Pontuação atual: $pontuacao pontos"
+                break
+            } elseif ($i -lt ($tentativas - 1)) {
+                Write-Host "Tente novamente."
+            }
+        }
+    }
+
+    # Exibe a pontuação final do jogador
+    Write-Host "`nPontuação final: $pontuacao pontos"
+}
