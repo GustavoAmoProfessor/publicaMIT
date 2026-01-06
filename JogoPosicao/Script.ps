@@ -1,0 +1,127 @@
+# Nas duas linhas seguintes eu defini a largura e a altura do jogo
+$largura = 17
+$altura = 12
+
+# Criei uma matriz para representar o labirinto, o caractere "-" representa as paredes
+$labirinto = @(
+    "-----------------",
+    "-         --- ---",
+    "-             ---",
+    "---       --   --",
+    "-- -----   ------",
+    "--- -      ---- -",
+    "----   ----- - --",
+    "-            ----",
+    "---    -------- -",
+    "- -  ---       --",  
+    "- -       --    X",    # Posicionei o X aqui, ele representa a saÃ­da do labirinto
+    "-----------------"
+)
+
+# Aqui defini a posiÃ§Ã£o inicial do jogador por meio do eixo X e Y
+$posicaoX = 1
+$posicaoY = 1
+
+# FunÃ§Ã£o criada para exibir o labirinto no terminal
+function MostrarLabirinto {  
+
+#Isso limpa a tela do console, removendo qualquer saÃ­da anterior    
+    Clear-Host
+
+#Abaixo iniciei um loop for para a variÃ¡vel $y (representa  a coordenada vertical no labirinto), que funciona do 0 atÃ© $altura - 1
+    for ($y = 0; $y -lt $altura; $y++) {
+
+#Dentro do for do $y, hÃ¡ outro loop for para a variÃ¡vel $x (representa a coordenada horizontal no labirinto), de 0 atÃ© $largura - 1
+        for ($x = 0; $x -lt $largura; $x++) {
+
+#Aqui, se a posiÃ§Ã£o atual ($y e $x) for igual Ã  posiÃ§Ã£o do jogador ($posicaoY e $posicaoX), a prÃ³xima parte deste bloco serÃ¡ executada
+            if ($y -eq $posicaoY -and $x -eq $posicaoX) {
+
+#O prÃ³ximo passo imprime o caractere "&" no console sem pular para a prÃ³xima linha
+                Write-Host -NoNewline "&"
+
+#Se a a parte anterior nÃ£o for executada, esta linha verifica se o caractere no labirinto nas coordenadas atuais Ã© "-"
+            } elseif ($labirinto[$y][$x] -eq "-") {
+
+#Se for o caso da linha anterior, essa linha imprime o caractere "-" no console sem uma nova linha
+                Write-Host -NoNewline "-"
+
+#EAs duas prÃ³ximas linhas verificam se o caractere no labirinto nas coordenadas atuais Ã© "X", se for, ele serÃ¡ mostrado no console
+            } elseif ($labirinto[$y][$x] -eq "X") {
+                Write-Host -NoNewline "X"
+
+#Se nÃ£o ocorrer nem uma das condiÃ§Ãµesanteriores do if, esta linha imprimirÃ¡ um espaÃ§o em branco no console.
+            } else {
+                Write-Host -NoNewline " "
+            }
+#Depois de imprimir todos os caracteres horizontais, essa linha faz com que pule para uma nova linha no console.
+        }
+        Write-Host ""
+    }
+}
+
+
+# FunÃ§Ã£o para verificar se o jogador ganhou
+function VerificarVitoria {
+
+#Esse IF age se a posiÃ§Ã£o horizontal do jogador for duas casas antes do limite direito do labirinto (largura total
+#menos 2, que Ã© o espaÃ§o da margem), e a vertical Ã© igual a 7 (a linha em que estÃ¡ a saÃ­da)
+    if ($posicaoX -eq ($largura - 2) -and $posicaoY -eq 7) {  
+
+#Se o IF estiver correto, indica que o jogador alcanÃ§ou a posiÃ§Ã£o de vitÃ³ria
+        return $true
+
+#Se o IF ainda nÃ£o for verdadeiro, indica que o jogador ainda nÃ£o alcanÃ§ou a posiÃ§Ã£o de vitÃ³ria
+    }
+    return $false
+}
+
+# Parte que pede o movimento seguinte do jogador
+MostrarLabirinto
+while ($true) {
+
+#defini uma frase para aparecer abaixo do labirinto, que Ã© respondida pelo jogador com o movimento desejado
+    $movimento = Read-Host "Para onde quer ir? W (cima) ; A (esquerda) ; S (baixo) ou D (direita)"
+
+    switch ($movimento) {
+
+#Linha que define o movimento gerado pelo caractere W
+        "W" {
+            if ($posicaoY -gt 0 -and $labirinto[$posicaoY - 1][$posicaoX] -ne "-") {
+                $posicaoY--
+            }
+        }
+
+#Linha que define o movimento gerado pelo caractere S
+        "S" {
+            if ($posicaoY -lt ($altura - 1) -and $labirinto[$posicaoY + 1][$posicaoX] -ne "-") {
+                $posicaoY++
+            }
+        }
+
+#Linha que define o movimento gerado pelo caractere A
+        "A" {
+            if ($posicaoX -gt 0 -and $labirinto[$posicaoY][$posicaoX - 1] -ne "-") {
+                $posicaoX--
+            }
+        }
+
+#Linha que define o movimento gerado pelo caractere D
+        "D" {
+            if ($posicaoX -lt ($largura - 1) -and $labirinto[$posicaoY][$posicaoX + 1] -ne "-") {
+                $posicaoX++
+            }
+        }
+    }
+
+#Parte que exibe mensagem de vitÃ³ria
+    MostrarLabirinto
+
+#Essa linha verifica se a posiÃ§Ã£o atual do jogador Ã© o caractere "X", que foi usado para representar a posiÃ§Ã£o de vitÃ³ria.
+    if ($labirinto[$posicaoY][$posicaoX] -eq "X") {
+
+#Essa linha define o que serÃ¡ mostrado se o IF for verdadeiro (tive que escrever tudo sem acentos, a linguagem nÃ£o aceita eles)
+        Write-Host "Parabens, voce achou a saida do Labirinto!"
+        break
+    }
+}
