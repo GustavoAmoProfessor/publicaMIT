@@ -1,7 +1,7 @@
 # publicaMIT
 Publicação de recursos para publicações de domínio público não comercial
 
-# Scripts Educacionais em PowerShell para Ensino de Lógica de Programação
+# Scripts Educacionais em PowerShell para Ensino de Lógica de Programação. EXECUTE UTILIZANDO O POWERSHELL
 
 ## Descrição
 Este repositório reúne um conjunto de scripts educacionais desenvolvidos em PowerShell, com finalidade didática, voltados ao ensino de lógica de programação, algoritmos e automação básica. Os scripts foram concebidos para uso em contextos educacionais formais e não formais, especialmente na Educação Profissional e Tecnológica (EPT), podendo ser utilizados como material de apoio em disciplinas, oficinas e atividades práticas.
