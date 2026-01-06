@@ -1,0 +1,96 @@
+clear
+
+#setup
+
+$venceu = 0
+
+$listaValidas = "POWER" , "SHELL", "JOGO"
+
+$listaNum = "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", 
+            "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", 
+            "3", "1", "1", "1", "1", "1", "0", "0", "0", "0", 
+            "3", "0", "0", "0", "0", "0", "0", "0", "0", "0", 
+            "3", "0", "0", "0", "0", "0", "0", "0", "0", "0", 
+            "3", "0", "0", "0", "0", "0", "0", "0", "0", "0", 
+            "0", "0", "0", "0", "2", "2", "2", "2", "2", "0", 
+            "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", 
+            "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", 
+            "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"
+
+$listaPalavras =  " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", 
+            " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", 
+            "J", "P", "O", "W", "E", "R", " ", " ", " ", " ", 
+            "O", " ", " ", " ", " ", " ", " ", " ", " ", " ", 
+            "G", " ", " ", " ", " ", " ", " ", " ", " ", " ", 
+            "O", " ", " ", " ", " ", " ", " ", " ", " ", " ", 
+            " ", " ", " ", " ", "S", "H", "E", "L", "L", " ", 
+            " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", 
+            " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", 
+            " ", " ", " ", " ", " ", " ", " ", " ", " ", " "
+
+$letras = "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
+
+#cria os dígitos aleatorios
+for ($i = 0; $i -lt 100; $i++){
+    $random = get-random -Minimum 0 -Maximum 25
+    $digito = $letras[$random]
+    if ($listaPalavras[$i] -eq " "){
+        $listaPalavras[$i] = $digito}
+}
+
+
+
+while ($true){
+clear
+
+$venceu = 0
+
+# Este código percorre o array $listaPalavras com 100 elementos, exibindo seus valores, inserindo uma linha em branco a cada 10 elementos para organizar a saída no console.
+for ($i = 0; $i -lt 100; $i++){
+    if ($i%10 -eq 0){" 
+    "}
+    write-host $listaPalavras[$i] " " -NoNewline
+
+}
+
+"
+"
+
+# Neste bloco, o jogador digita uma palavra que encontrou, e se a palavra estiver na lista de palavras válidas ($listaValidas), ela é marcada como encontrada. Isso é feito atualizando as listas $listaNum e $listaPalavras para refletir a descoberta.
+$input = (Read-Host "Digite a palavra que achou").ToUpper()
+
+if ($input -in $listaValidas){
+$index = ($listaValidas.IndexOf($input)) + 1
+for ($i = 0; $i -lt 100; $i++){
+    if ($listaNum[$i] -eq $index){
+        $listaNum[$i] = "0"
+        $listaPalavras[$i] = " "
+    }
+}
+}
+
+# Neste trecho, o código conta quantas palavras ainda não foram encontradas. Para cada elemento do array $listaNum que não é igual a "0", ele incrementa a variável $venceu.
+for ($i = 0; $i -lt 100; $i++){
+if ($listaNum[$i] -ne "0"){
+        $venceu += 1
+    }
+}
+
+# Neste bloco, o código verifica se o jogador venceu o jogo, ou seja, se todas as palavras foram encontradas. Se todas as palavras foram encontradas ($venceu igual a 0), ele limpa a tela do console e exibe a lista de palavras encontradas.
+if ($venceu -eq 0){
+clear
+for ($i = 0; $i -lt 100; $i++){
+    if ($i%10 -eq 0){" 
+    "}
+    write-host $listaPalavras[$i] " " -NoNewline
+
+}
+"
+
+"
+# Neste bloco, o código exibe uma mensagem de parabéns ao jogador, em amarelo, caso ele tenha encontrado todas as palavras. Em seguida, o loop infinito é interrompido usando 'break', encerrando o jogo.
+Write-Host "Parabéns!! Você achou todas as palavras!" -ForegroundColor Yellow
+break
+}
+
+}
