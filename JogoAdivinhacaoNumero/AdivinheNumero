@@ -1,0 +1,168 @@
+clear
+"Bem Vindo!"
+$n = 0
+$m = 0
+$r = -1
+
+
+#principal
+while ($true){
+clear
+#escolha de modalidade
+"
+Escolha a modalidade:
+
+1) Adição +
+2) Subtração -
+3) Multiplicação x
+4) Divisão /"
+$n = Read-Host " "
+
+
+#escolha de dificuldade
+"
+Escolha adificuldade:
+
+1) Fácil (números até 20)
+2) Médio (números até 50)
+3) Difícil (números até 100)"
+$m = Read-Host " "
+
+#colocar dificuldade
+if ($m -eq 1){
+$max = 21
+}
+if ($m -eq 2){
+$max = 51
+}
+if ($m -eq 3){
+$max = 101
+}
+
+#sorteia a ordem
+$ordem = Get-Random -Maximum 4
+
+""
+#para modalidade de Adição
+if ($n -eq 1){
+
+if ($ordem -eq 1){
+$c = Get-Random -Maximum $max
+$b = Get-Random -Maximum $c 
+$a = $c - $b
+
+write-host "$b + _ = $c"
+}
+
+if ($ordem -eq 2){
+$c = Get-Random -Maximum $max
+$b = Get-Random -Maximum $c 
+$a = $c - $b
+
+write-host "_ + $b = $c"
+}
+
+if ($ordem -eq 3){
+$a = Get-Random -Maximum $max
+$b = Get-Random -Maximum $c 
+$c = $a - $b
+
+write-host "$b + $c = _"
+}
+}
+
+#para a modalidade de Subtração
+if ($n -eq 2){
+
+if ($ordem -eq 1){
+$a = Get-Random -Maximum $max
+$c = Get-Random -Maximum $max
+$b = $c + $a
+
+write-host "$b - _ = $c"
+}
+
+if ($ordem -eq 2){
+$b = Get-Random -Maximum $max
+$c = Get-Random -Maximum $max
+$a = $c + $b
+
+write-host "_ - $b = $c"
+}
+
+if ($ordem -eq 3){
+$a = Get-Random -Maximum $max
+$b = Get-Random -Maximum $a
+$c = $a + $b
+
+write-host "$c - $b = _"
+}
+}
+
+#para modalidade de Multiplicação
+if ($n -eq 3){
+
+if ($ordem -eq 1){
+$a = Get-Random -Maximum $max
+$b = Get-Random -Maximum $max 
+$c = $a * $b
+
+write-host "$b x _ = $c"
+}
+
+if ($ordem -eq 2){
+$a = Get-Random -Maximum $max
+$b = Get-Random -Maximum $max 
+$c = $a * $b
+
+write-host "_ x $b = $c"
+}
+
+if ($ordem -eq 3){
+$c = Get-Random -Maximum $max
+$b = Get-Random -Maximum $max 
+$a = $c * $b
+
+write-host "$b x $c = _"
+}
+}
+
+#para a modalidade de Divisão
+if ($n -eq 4){
+
+if ($ordem -eq 1){
+$a = Get-Random -Maximum $max
+$c = Get-Random -Maximum $max
+$b = $c * $a
+
+write-host "$b / _ = $c"
+}
+
+if ($ordem -eq 2){
+$b = Get-Random -Maximum $max
+$c = Get-Random -Maximum $max
+$a = $c * $b
+
+write-host "_ / $b = $c"
+}
+
+if ($ordem -eq 3){
+$a = Get-Random -Maximum $max
+$b = Get-Random -Maximum $a
+$c = $a * $b
+
+write-host "$c / $b = _"
+}
+}
+
+$r = Read-Host "Qual a resposta da lacuna"
+
+if ($r -eq $a){
+""
+write-host "Parabéns!" -ForegroundColor Yellow
+}
+
+
+$z = Read-Host "Jogar denovo? (1 - sim) (2 -não)"
+if ($z -eq 2){break}
+}
